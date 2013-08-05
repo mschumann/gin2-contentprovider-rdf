@@ -31,6 +31,12 @@ import com.iqser.gin.developer.test.plugin.provider.ContentProviderTestCase;
  */
 public class RDFContentProviderTest extends ContentProviderTestCase {
 	
+	private static final String ATTRIBUTE_CLASS = "CLASS";
+	private static final String ATTRIBUTE_SPECIES = "SPECIES";
+	private static final String ATTRIBUTE_NAME = "NAME";
+	private static final String ATTRIBUTE_RDFNAMESPACE = "RDFNAMESPACE";
+	private static final String ATTRIBUTE_CONTENT_TYPE = "Animal";
+
 	/**
 	 * Test method for {@link RDFContentProvider#doSynchronization()}.
 	 * @throws Exception 
@@ -41,40 +47,40 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata
 		Content content1 = new Content();
 		content1.setContentUrl("urn:animals:lion");
 		content1.setProvider("provider");
-		content1.setType("Animal");
-		content1.addAttribute(new Attribute("class", "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content1.addAttribute(new Attribute("species", "Panthera leo", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content1.addAttribute(new Attribute("name", "Lion", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content1.addAttribute(new Attribute("RDFNamespace", "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
+		content1.setType(ATTRIBUTE_CONTENT_TYPE);
+		content1.addAttribute(new Attribute(ATTRIBUTE_CLASS, "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content1.addAttribute(new Attribute(ATTRIBUTE_SPECIES, "Panthera leo", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content1.addAttribute(new Attribute(ATTRIBUTE_NAME, "Lion", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content1.addAttribute(new Attribute(ATTRIBUTE_RDFNAMESPACE, "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
 		
 		Content content2 = new Content();
 		content2.setContentUrl("urn:animals:tarantula");
 		content2.setProvider("provider");
-		content2.setType("Animal");
-		content2.addAttribute(new Attribute("class", "Arachnid", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content2.addAttribute(new Attribute("species", "Avicularia avicularia", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content2.addAttribute(new Attribute("name", "Tarantula", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content2.addAttribute(new Attribute("RDFNamespace", "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
+		content2.setType(ATTRIBUTE_CONTENT_TYPE);
+		content2.addAttribute(new Attribute(ATTRIBUTE_CLASS, "Arachnid", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content2.addAttribute(new Attribute(ATTRIBUTE_SPECIES, "Avicularia avicularia", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content2.addAttribute(new Attribute(ATTRIBUTE_NAME, "Tarantula", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content2.addAttribute(new Attribute(ATTRIBUTE_RDFNAMESPACE, "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
 		
 		Content content3 = new Content();
 		content3.setContentUrl("urn:animals:hippopotamus");
 		content3.setProvider("provider");
-		content3.setType("Animal");
-		content3.addAttribute(new Attribute("class", "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content3.addAttribute(new Attribute("species", "Hippopotamus amphibius", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content3.addAttribute(new Attribute("name", "Hippopotamus", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content3.addAttribute(new Attribute("RDFNamespace", "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
+		content3.setType(ATTRIBUTE_CONTENT_TYPE);
+		content3.addAttribute(new Attribute(ATTRIBUTE_CLASS, "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content3.addAttribute(new Attribute(ATTRIBUTE_SPECIES, "Hippopotamus amphibius", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content3.addAttribute(new Attribute(ATTRIBUTE_NAME, "Hippopotamus", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content3.addAttribute(new Attribute(ATTRIBUTE_RDFNAMESPACE, "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
 
 		// Add your expectations
 		this.expectsIsExistingContent("provider", "urn:animals:lion", false);
@@ -110,11 +116,11 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata
@@ -153,11 +159,11 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata
@@ -203,22 +209,22 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata
 		Content content = new Content();
 		content.setContentUrl("urn:animals:lion");
 		content.setProvider("provider");
-		content.setType("Animal");
-		content.addAttribute(new Attribute("class", "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content.addAttribute(new Attribute("species", "Panthera leo", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content.addAttribute(new Attribute("name", "Lion", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content.addAttribute(new Attribute("RDFNamespace", "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
+		content.setType(ATTRIBUTE_CONTENT_TYPE);
+		content.addAttribute(new Attribute(ATTRIBUTE_CLASS, "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content.addAttribute(new Attribute(ATTRIBUTE_SPECIES, "Panthera leo", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content.addAttribute(new Attribute(ATTRIBUTE_NAME, "Lion", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content.addAttribute(new Attribute(ATTRIBUTE_RDFNAMESPACE, "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
 		
 		// Initialize the test
 		prepare(); 
@@ -245,22 +251,22 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata		
 		Content content = new Content();
 		content.setContentUrl("urn:animals:lion");
 		content.setProvider("provider");
-		content.setType("Animal");
-		content.addAttribute(new Attribute("class", "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content.addAttribute(new Attribute("species", "Panthera leo", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content.addAttribute(new Attribute("name", "Lion", Attribute.ATTRIBUTE_TYPE_TEXT, true));
-		content.addAttribute(new Attribute("RDFNamespace", "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
+		content.setType(ATTRIBUTE_CONTENT_TYPE);
+		content.addAttribute(new Attribute(ATTRIBUTE_CLASS, "Mammal", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content.addAttribute(new Attribute(ATTRIBUTE_SPECIES, "Panthera leo", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content.addAttribute(new Attribute(ATTRIBUTE_NAME, "Lion", Attribute.ATTRIBUTE_TYPE_TEXT, true));
+		content.addAttribute(new Attribute(ATTRIBUTE_RDFNAMESPACE, "urn:animals:", Attribute.ATTRIBUTE_TYPE_TEXT, false));
 
 		String rawContent = "<rdf:RDF\n" +
 				"    xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n" +
@@ -279,7 +285,7 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		providerUnderTest.init();		
 		
 		// Execute the method(s) under test
-		Content contentFromProvider = providerUnderTest.getContent(inputStream);
+		Content contentFromProvider = providerUnderTest.getExistingContent(inputStream);
 		assertEquals(content, contentFromProvider);
 		
 		// Destroy the plugin
@@ -299,11 +305,11 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata
@@ -337,11 +343,11 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata
@@ -354,7 +360,7 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		providerUnderTest.init();		
 		
 		// Execute the method(s) under test
-		providerUnderTest.performAction("delete", content);
+		providerUnderTest.performAction("delete", null, content);
 		
 		// Destroy the plugin
 		providerUnderTest.destroy();
@@ -373,11 +379,11 @@ public class RDFContentProviderTest extends ContentProviderTestCase {
 		File file = new File(System.getProperty("user.dir") + "/src/test/animals.rdf");
 		Properties initParams = new Properties();
 		initParams.setProperty("modelURL", file.toURI().toURL().toString());
+		initParams.setProperty("content-type", ATTRIBUTE_CONTENT_TYPE);
 		
 		RDFContentProvider providerUnderTest = new RDFContentProvider();
 		providerUnderTest.setId(1);
 		providerUnderTest.setName("provider");
-		providerUnderTest.setType("Animal");
 		providerUnderTest.setInitParams(initParams);
 		
 		// Prepare your testdata

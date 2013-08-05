@@ -34,9 +34,16 @@ public class RDFContentProvider extends AbstractContentProvider {
 	private Model model = null;
 	private long  modificationDate = -1;
 
+	private String CONTENT_TYPE; //mandatory
+	
+	private static final String ATTRIBUTE_NAME = "NAME";
+	private static final String ATTRIBUTE_RDFNAMESPACE = "RDFNAMESPACE";
+
 	@Override
 	public void init() {
 		LOGGER.debug("Start init()");
+		
+		CONTENT_TYPE = getInitParams().getProperty("content-type");
 		
 		if (getInitParams().getProperty("sparqlQuery") != null) {
 			// Using a SPARQL service
@@ -47,7 +54,7 @@ public class RDFContentProvider extends AbstractContentProvider {
 			model = result.getResourceModel();
 			modificationDate = System.currentTimeMillis();
 		} else {
-			// Using a remote RDF ressource
+			// Using a remote RDF resource
 			model = ModelFactory.createDefaultModel();
 			model.read(getInitParams().getProperty("modelURL"));
 		}
@@ -114,7 +121,6 @@ public class RDFContentProvider extends AbstractContentProvider {
 		LOGGER.debug("Finished doHousekeeping()");
 	}
 
-	@Override
 	public Content getContent(String url) {
 		LOGGER.debug("Start getContent(" + url + ")");
 		
@@ -122,7 +128,7 @@ public class RDFContentProvider extends AbstractContentProvider {
 		
 		c.setContentUrl(url);
 		c.setProvider(getName());
-		c.setType(getType());
+		c.setType(CONTENT_TYPE);
 		
 		Resource resource = model.getResource(url);
 		StmtIterator iter = resource.listProperties();
@@ -133,6 +139,9 @@ public class RDFContentProvider extends AbstractContentProvider {
 		    RDFNode   object    = stmt.getObject();      // get the object
 		    
 		    String	  name		= predicate.getLocalName();
+		    String upperCaseName = name.toUpperCase().replace(' ', '_').replace("Ä", "AE").replace("Ö", "OE").replace("Ü", "UE").replace("ß", "SS").replaceAll("[^A-Z\\d-_.]", "");
+
+		    
 		    String	  value		= object.toString();
 		    int       type		= Attribute.ATTRIBUTE_TYPE_TEXT;
 		    boolean   isKey     = false;
@@ -143,19 +152,19 @@ public class RDFContentProvider extends AbstractContentProvider {
 		    	isKey = true;
 		    }
 		    
-		    if (!name.equalsIgnoreCase("type")) {
-			    c.addAttribute(new Attribute(name, value, type, isKey));
+		    if (!upperCaseName.equalsIgnoreCase("type")) {
+			    c.addAttribute(new Attribute(upperCaseName, value, type, isKey));
 		    } else if (value.endsWith("Seq")) {
 		    	return null;
 		    } 
 		}
 		
 		if (resource.getLocalName() != null && c.getAttributeByName("Name") == null) {
-			c.addAttribute(new Attribute("Name", resource.getLocalName(), Attribute.ATTRIBUTE_TYPE_TEXT, true));
+			c.addAttribute(new Attribute(ATTRIBUTE_NAME, resource.getLocalName(), Attribute.ATTRIBUTE_TYPE_TEXT, true));
 		}
 		
 		if (resource.getNameSpace() != null) {
-			c.addAttribute(new Attribute("RDFNamespace", resource.getNameSpace(), Attribute.ATTRIBUTE_TYPE_TEXT));
+			c.addAttribute(new Attribute(ATTRIBUTE_RDFNAMESPACE, resource.getNameSpace(), Attribute.ATTRIBUTE_TYPE_TEXT));
 		}
 
 		LOGGER.debug("Finished getContent(" + url + ")");
@@ -163,8 +172,7 @@ public class RDFContentProvider extends AbstractContentProvider {
 		return c;
 	}
 
-	@Override
-	public Content getContent(InputStream inputStream) {
+	public Content getExistingContent(InputStream inputStream) throws IQserException {
 		LOGGER.debug("Starting getContent(" + inputStream.toString() + ")");
 
 		Model cModel = ModelFactory.createDefaultModel();
@@ -200,14 +208,21 @@ public class RDFContentProvider extends AbstractContentProvider {
 		return null;
 	}
 
+
 	@Override
-	public void performAction(String arg0, Content arg1) {
+	public void performAction(String arg0, Collection<Parameter> arg1, Content arg2) {
 		// No actions defined for this content provider
 	}
 
 	@Override
-	public void performAction(String arg0, Collection<Parameter> arg1,
-			Content arg2) {
-		// No actions defined for this content provider
+	public Content createContent(String contentUrl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Content createContent(InputStream inStream) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

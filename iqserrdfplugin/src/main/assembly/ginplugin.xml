@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ginplugin xmlns="http://www.iqser.com/schema/ginplugin/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.iqser.com/schema/ginplugin/2.0 http://www.iqser.com/schema/ginplugin/2.0/ginplugin.xsd">
+  <name>iqserrdfplugin</name>
+  <vendor>iQser GmbH</vendor>
+  <version>1.0.0</version>
+  <description>This content provider enables the integration of  remote RDF sources like Linked Open Data.</description>
+  <classname type="ContentProvider">
+    <!-- full qualified class name -->
+    sf.net.plugin.rdf.RDFContentProvider
+  </classname>
+  <params>
+    <param name="sparqlQuery" type="String" optional="true">Optional SPARQL Query for external RDF triple stores</param>
+    <param name="modelURL" type="String" optional="false">The URL of the RDF model or the service URL of the RDF triple store in combination with a SPARQL query.</param>
+	<param name="content-type" type="String" optional="false">The content type of the content objects of the xml file.</param>
+  </params>
+</ginplugin>
+

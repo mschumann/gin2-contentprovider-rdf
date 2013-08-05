@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE project>
-<project basedir="." default="export-plugin" name="sf-rdf-plugin">
+<project basedir="." default="export-plugin" name="siqserrdfplugin">
 	<property environment="env" />
 	<property name="debuglevel" value="source,lines,vars" />
 	<property name="targetJavaVersion" value="1.6" />
