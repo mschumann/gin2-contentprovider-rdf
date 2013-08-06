@@ -139,6 +139,7 @@ public class RDFContentProvider extends AbstractContentProvider {
 		    RDFNode   object    = stmt.getObject();      // get the object
 		    
 		    String	  name		= predicate.getLocalName();
+		    // Attribute name must be uppercase, without any blanks, etc
 		    String upperCaseName = name.toUpperCase().replace(' ', '_').replace("Ä", "AE").replace("Ö", "OE").replace("Ü", "UE").replace("ß", "SS").replaceAll("[^A-Z\\d-_.]", "");
 
 		    
